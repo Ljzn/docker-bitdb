@@ -36,6 +36,21 @@ services:
     depends_on:
       - mongo
       - bitcoin-sv
+  bitserve:
+    build:
+      context: "./docker"
+      dockerfile: "./Dockerfile.bitserve"
+    image: bitserve
+    container_name: bitserve
+    working_dir: "/bitserve"
+    command: bash -c "sleep 10 && npm start"
+    restart: always
+    networks:
+      - bitdb
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
 
 networks:
   bitdb:
